@@ -1,0 +1,19 @@
+#  Local .terraform directories
+**/.terraform/*
+
+# provider.tf
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+
+# .tfvars files
+*.tfvars
+
+**/generated/**
+**/inventory/**
+
+# visual code
+ **/.vscode/*
+
+.terraform.lock.hcl
