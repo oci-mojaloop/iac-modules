@@ -45,7 +45,12 @@ variable "region" {
   description = "The OCI region"
 }
 
+variable "compartment_id" {
+  type        = string
+  description = "compartment ocid"
+}
+
 module "ubuntu_canonical_image" {
   source         = "./ubuntu-img-id"
-  compartment_id = "ocid1.compartment.oc1..aaaaaaaabkhsfqcld42eqnnm27dg5kbkfuhnbp2w4srnnzjgmeix5ldcct5q"
+  compartment_id = var.compartment_id
 }
