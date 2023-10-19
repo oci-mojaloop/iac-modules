@@ -50,7 +50,57 @@ variable "compartment_id" {
   description = "compartment ocid"
 }
 
-module "ubuntu_canonical_image" {
-  source         = "./ubuntu-img-id"
-  compartment_id = var.compartment_id
-}
+# module "ubuntu_canonical_image" {
+#   source         = "./ubuntu-img-id"
+#   compartment_id = var.compartment_id
+# }
+
+# module "base_infra" {
+#   source         = "./base-infra"
+#   tenancy_id     = var.tenancy_id
+# }
+
+# data "oci_identity_availability_domains" "ads" {
+#   compartment_id = var.tenancy_id
+# }
+
+# module "subnet_addrs" {
+#   source = "hashicorp/subnets/cidr"
+
+#   base_cidr_block = "10.25.0.0/22"
+#   networks = [
+#     for subnet in concat(local.private_subnets_list, local.public_subnets_list) : {
+#       name     = subnet
+#       new_bits = 3
+#     }
+#   ]
+
+# }
+
+# locals {
+#   ads = slice(data.oci_identity_availability_domains.ads.availability_domains, 0, 1)
+#   public_subnets_list  = [for ad in local.ads : "public-${ad.name}"]
+#   private_subnets_list = [for ad in local.ads : "private-${ad.name}"]
+#   public_subnet_cidrs  = [for subnet_name in local.public_subnets_list : module.subnet_addrs.network_cidr_blocks[subnet_name]]
+#   private_subnet_cidrs = [for subnet_name in local.private_subnets_list : module.subnet_addrs.network_cidr_blocks[subnet_name]]
+# }
+
+# output "public_subnets_list" {
+#   description = "public subnet list"
+#   value       = local.public_subnets_list
+# }
+
+# output "private_subnets_list" {
+#   description = "private subnet list"
+#   value       = local.private_subnets_list
+# }
+
+# output "public_subnets_cidrs" {
+#   description = "public subnet cidr"
+#   value       = local.public_subnet_cidrs
+# }
+
+# output "private_subnets_cidr" {
+#   description = "private subnet cidr"
+#   value       = local.private_subnet_cidrs
+# }
