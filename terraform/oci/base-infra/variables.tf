@@ -68,6 +68,16 @@ variable "bastion_state" {
   type        = string
 }
 
+variable "enable_netmaker" {
+  type    = bool
+  default = false
+}
+
+variable "netmaker_vcn_cidr" {
+  type    = string
+  default = "10.26.0.0/24"
+}
+
 ###
 # Local copies of variables to allow for parsing
 ###
@@ -90,8 +100,16 @@ locals {
     cidr_block = local.private_subnet_cidrs[idx]
     type       = "private"
   } }
-  subnet_maps      = merge(local.public_subnets, local.private_subnets)
-  public_subnet_id = data.oci_core_subnets.public_subnet.subnets[0].id
-  ssh_keys         = []
+  subnet_maps                  = merge(local.public_subnets, local.private_subnets)
+  public_subnet_id             = lookup(module.vcn.subnet_id, "public-subnet", null)
+  netmaker_public_subnet_id    = lookup(module.vcn_netmaker[0].subnet_id, "netmaker-public", null)
+  ssh_keys                     = []
+  netmaker_public_subnets_list = ["netmaker-public"]
+  netmaker_public_subnet_cidrs = [for subnet_name in local.netmaker_public_subnets_list : module.netmaker_subnet_addrs[0].network_cidr_blocks[subnet_name]]
+  netmaker_public_subnets = { for idx, name in local.netmaker_public_subnets_list : "netmaker_public_sub${idx + 1}" => {
+    name       = name
+    cidr_block = local.netmaker_public_subnet_cidrs[idx]
+    type       = "public"
+  } }
 
 }

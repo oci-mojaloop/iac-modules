@@ -70,6 +70,7 @@ module "base_infra" {
   ad_count         = 3
   tags             = var.tags
   bastion_image_id = module.ubuntu_canonical_image.id
+  enable_netmaker  = true
 }
 
 # data "oci_identity_availability_domains" "ads" {
