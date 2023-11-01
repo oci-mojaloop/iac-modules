@@ -50,15 +50,27 @@ variable "compartment_id" {
   description = "compartment ocid"
 }
 
-# module "ubuntu_canonical_image" {
-#   source         = "./ubuntu-img-id"
-#   compartment_id = var.compartment_id
-# }
+variable "tags" {
+  description = "Contains default tags for this project"
+  type        = map(string)
+  default     = {}
+}
 
-# module "base_infra" {
-#   source         = "./base-infra"
-#   tenancy_id     = var.tenancy_id
-# }
+module "ubuntu_canonical_image" {
+  source         = "./ubuntu-img-id"
+  compartment_id = var.compartment_id
+}
+
+module "base_infra" {
+  source           = "./base-infra"
+  tenancy_id       = var.tenancy_id
+  compartment_id   = var.compartment_id
+  cluster_name     = "test"
+  domain           = "oci.mojaloop"
+  ad_count         = 3
+  tags             = var.tags
+  bastion_image_id = module.ubuntu_canonical_image.id
+}
 
 # data "oci_identity_availability_domains" "ads" {
 #   compartment_id = var.tenancy_id
@@ -71,19 +83,38 @@ variable "compartment_id" {
 #   networks = [
 #     for subnet in concat(local.private_subnets_list, local.public_subnets_list) : {
 #       name     = subnet
-#       new_bits = 3
+#       new_bits = 1
 #     }
 #   ]
 
 # }
 
 # locals {
-#   ads = slice(data.oci_identity_availability_domains.ads.availability_domains, 0, 1)
-#   public_subnets_list  = [for ad in local.ads : "public-${ad.name}"]
-#   private_subnets_list = [for ad in local.ads : "private-${ad.name}"]
+#   ads                  = slice(data.oci_identity_availability_domains.ads.availability_domains, 0, 3)
+#   # public_subnets_list  = [for ad in local.ads : "public-${ad.name}"]
+#   # private_subnets_list = [for ad in local.ads : "private-${ad.name}"]
+#   public_subnets_list  = ["public-subnet"]
+#   private_subnets_list = ["private-subnet"]
 #   public_subnet_cidrs  = [for subnet_name in local.public_subnets_list : module.subnet_addrs.network_cidr_blocks[subnet_name]]
 #   private_subnet_cidrs = [for subnet_name in local.private_subnets_list : module.subnet_addrs.network_cidr_blocks[subnet_name]]
+
+#   public_subnets = { for idx, name in local.public_subnets_list : "public_sub${idx + 1}" => {
+#     name       = name
+#     cidr_block = local.public_subnet_cidrs[idx]
+#     type       = "public"
+#   } }
+
+#   private_subnets = { for idx, name in local.private_subnets_list : "private_sub${idx + 1}" => {
+#     name       = name
+#     cidr_block = local.private_subnet_cidrs[idx]
+#     type       = "private"
+#   } }
+
+#   subnet_maps = merge(local.public_subnets, local.private_subnets)
 # }
+
+
+
 
 # output "public_subnets_list" {
 #   description = "public subnet list"
@@ -104,3 +135,9 @@ variable "compartment_id" {
 #   description = "private subnet cidr"
 #   value       = local.private_subnet_cidrs
 # }
+
+# output "subnets" {
+#   description = "subnet maps"
+#   value       = local.subnet_maps
+# }
+
