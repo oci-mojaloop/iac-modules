@@ -46,10 +46,11 @@ output "bastion_security_group_id" {
 #   value = module.vpc.private_subnets_cidr_blocks
 # }
 
-# output "netmaker_public_ip" {
-#   description = "Netmaker Instance Hostname"
-#   value       = var.enable_netmaker ? aws_instance.netmaker[0].public_ip : null
-# }
+output "netmaker_public_ip" {
+  description = "Netmaker Instance Hostname"
+  value       = var.enable_netmaker ? oci_core_instance.netmaker[0].public_ip : null
+}
+
 
 output "key_pair_name" {
   value = local.cluster_domain
