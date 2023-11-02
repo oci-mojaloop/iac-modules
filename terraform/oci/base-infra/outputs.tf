@@ -14,13 +14,13 @@ output "nat_public_ips" {
   value       = data.oci_core_nat_gateway.nat_gateway.nat_ip
 }
 
-# output "private_zone" {
-#   value = local.private_zone
-# }
+output "private_zone" {
+  value = local.private_zone
+}
 
-# output "public_zone" {
-#   value = local.public_zone
-# }
+output "public_zone" {
+  value = local.public_zone
+}
 
 output "vcn_id" {
   value = module.vcn.vcn_id
@@ -56,7 +56,7 @@ output "key_pair_name" {
   value = local.cluster_domain
 }
 
-# output "haproxy_server_fqdn" {
-#   description = "haproxy server Hostname"
-#   value       = var.create_haproxy_dns_record ? aws_route53_record.haproxy_server_private[0].fqdn : ""
-# }
+output "haproxy_server_fqdn" {
+  description = "haproxy server Hostname"
+  value       = var.create_haproxy_dns_record ? oci_dns_rrset.haproxy_server_private[0].domain : ""
+}

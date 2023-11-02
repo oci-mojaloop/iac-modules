@@ -78,18 +78,57 @@ variable "netmaker_vcn_cidr" {
   default = "10.26.0.0/24"
 }
 
+variable "manage_parent_domain" {
+  default     = false
+  type        = bool
+  description = "whether parent domain should be created and managed here"
+}
+
+variable "manage_parent_domain_ns" {
+  default     = false
+  type        = bool
+  description = "whether ns record should be created for parent domain in that parent's zone that should already exist"
+}
+
+variable "create_public_zone" {
+  default     = true
+  type        = bool
+  description = "Whether to create public zone in route53. true or false, default true"
+}
+
+variable "create_private_zone" {
+  default     = true
+  type        = bool
+  description = "Whether to create private zone in route53. true or false, default true"
+}
+
+variable "create_haproxy_dns_record" {
+  default     = false
+  type        = bool
+  description = "whether to create public dns record for private ip of bastion for haproxy"
+}
+
+variable "configure_dns" {
+  type        = bool
+  default     = true
+  description = "whether DNS is to be configured at all or not"
+}
+
 ###
 # Local copies of variables to allow for parsing
 ###
 locals {
-  cluster_domain       = "${replace(var.cluster_name, "-", "")}.${var.domain}"
-  identifying_tags     = { Cluster = var.cluster_name, Domain = local.cluster_domain }
-  common_tags          = merge(local.identifying_tags, var.tags)
-  ads                  = slice(data.oci_identity_availability_domains.ads.availability_domains, 0, var.ad_count)
-  public_subnets_list  = ["public-subnet"]
-  private_subnets_list = ["private-subnet"]
-  public_subnet_cidrs  = [for subnet_name in local.public_subnets_list : module.subnet_addrs.network_cidr_blocks[subnet_name]]
-  private_subnet_cidrs = [for subnet_name in local.private_subnets_list : module.subnet_addrs.network_cidr_blocks[subnet_name]]
+  cluster_domain        = "${replace(var.cluster_name, "-", "")}.${var.domain}"
+  cluster_parent_domain = join(".", [for idx, part in split(".", local.cluster_domain) : part if idx > 0])
+  identifying_tags      = { Cluster = var.cluster_name, Domain = local.cluster_domain }
+  common_tags           = merge(local.identifying_tags, var.tags)
+  ads                   = slice(data.oci_identity_availability_domains.ads.availability_domains, 0, var.ad_count)
+  private_zone          = var.configure_dns ? (var.create_private_zone ? oci_dns_zone.private[0] : data.oci_dns_zones.private[0]) : null
+  public_zone           = var.configure_dns ? (var.create_public_zone ? oci_dns_zone.public[0] : data.oci_dns_zones.public[0]) : null
+  public_subnets_list   = ["public-subnet"]
+  private_subnets_list  = ["private-subnet"]
+  public_subnet_cidrs   = [for subnet_name in local.public_subnets_list : module.subnet_addrs.network_cidr_blocks[subnet_name]]
+  private_subnet_cidrs  = [for subnet_name in local.private_subnets_list : module.subnet_addrs.network_cidr_blocks[subnet_name]]
   public_subnets = { for idx, name in local.public_subnets_list : "public_sub${idx + 1}" => {
     name       = name
     cidr_block = local.public_subnet_cidrs[idx]

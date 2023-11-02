@@ -71,6 +71,9 @@ module "base_infra" {
   tags             = var.tags
   bastion_image_id = module.ubuntu_canonical_image.id
   enable_netmaker  = true
+  manage_parent_domain = true
+  manage_parent_domain_ns = true
+  create_haproxy_dns_record = true
 }
 
 # data "oci_identity_availability_domains" "ads" {

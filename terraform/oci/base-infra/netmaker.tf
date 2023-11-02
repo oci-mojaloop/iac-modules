@@ -130,7 +130,7 @@ resource "oci_core_network_security_group_security_rule" "netmaker_egress_all" {
 }
 
 resource "oci_core_instance" "netmaker" {
-  count         = var.enable_netmaker ? 1 : 0
+  count               = var.enable_netmaker ? 1 : 0
   availability_domain = data.oci_identity_availability_domain.ad.name
   agent_config {
     are_all_plugins_disabled = false
