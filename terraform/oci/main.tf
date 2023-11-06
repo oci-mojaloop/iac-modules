@@ -140,8 +140,7 @@ module "base_infra" {
 #   value       = local.private_subnet_cidrs
 # }
 
-# output "subnets" {
-#   description = "subnet maps"
-#   value       = local.subnet_maps
-# }
+output "public_subnet_id" {
+  value       = module.base_infra.public_subnet_id
+}
 

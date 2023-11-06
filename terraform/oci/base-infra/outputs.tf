@@ -26,13 +26,22 @@ output "vcn_id" {
   value = module.vcn.vcn_id
 }
 
-# output "public_subnets" {
-#   value = module.vpc.public_subnets
-# }
+output "subnet_id" {
+  value = module.vcn.subnet_id
+}
 
-# output "private_subnets" {
-#   value = module.vpc.private_subnets
-# }
+output "public_subnet_id" {
+  value = module.vcn.subnet_id.public-subnet
+}
+
+output "private_subnet_id" {
+  value = module.vcn.subnet_id.private-subnet
+}
+
+
+output "private_subnets_cidr_blocks" {
+  value = module.vcn.subnet_all_attributes.private_sub1.cidr_block
+}
 
 # output "default_security_group_id" {
 #   value = module.vpc.default_security_group_id
@@ -42,9 +51,6 @@ output "bastion_security_group_id" {
   value = oci_core_network_security_group.bastion.id
 }
 
-# output "private_subnets_cidr_blocks" {
-#   value = module.vpc.private_subnets_cidr_blocks
-# }
 
 output "netmaker_public_ip" {
   description = "Netmaker Instance Hostname"
