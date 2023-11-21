@@ -141,14 +141,14 @@ locals {
   } }
   subnet_maps                  = merge(local.public_subnets, local.private_subnets)
   public_subnet_id             = lookup(module.vcn.subnet_id, "public-subnet", null)
-  netmaker_public_subnet_id    = lookup(module.vcn_netmaker[0].subnet_id, "netmaker-public", null)
+  netmaker_public_subnet_id    = var.enable_netmaker ? lookup(module.vcn_netmaker[0].subnet_id, "netmaker-public", null) : null
   ssh_keys                     = []
   netmaker_public_subnets_list = ["netmaker-public"]
-  netmaker_public_subnet_cidrs = [for subnet_name in local.netmaker_public_subnets_list : module.netmaker_subnet_addrs[0].network_cidr_blocks[subnet_name]]
-  netmaker_public_subnets = { for idx, name in local.netmaker_public_subnets_list : "netmaker_public_sub${idx + 1}" => {
+  netmaker_public_subnet_cidrs = var.enable_netmaker ? [for subnet_name in local.netmaker_public_subnets_list : module.netmaker_subnet_addrs[0].network_cidr_blocks[subnet_name]] : []
+  netmaker_public_subnets = var.enable_netmaker ? { for idx, name in local.netmaker_public_subnets_list : "netmaker_public_sub${idx + 1}" => {
     name       = name
     cidr_block = local.netmaker_public_subnet_cidrs[idx]
     type       = "public"
-  } }
+  } } : {}
 
 }

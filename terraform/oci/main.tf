@@ -56,21 +56,35 @@ variable "tags" {
   default     = {}
 }
 
-module "ubuntu_canonical_image" {
-  source         = "./ubuntu-img-id"
-  compartment_id = var.compartment_id
-}
+# module "ubuntu_canonical_image" {
+#   source         = "./ubuntu-img-id"
+#   compartment_id = var.compartment_id
+# }
 
-module "base_infra" {
-  source           = "./base-infra"
+# module "base_infra" {
+#   source           = "./base-infra"
+#   tenancy_id       = var.tenancy_id
+#   compartment_id   = var.compartment_id
+#   cluster_name     = "test"
+#   domain           = "oci.mojaloop"
+#   ad_count         = 3
+#   tags             = var.tags
+#   bastion_image_id = module.ubuntu_canonical_image.id
+#   enable_netmaker  = true
+#   manage_parent_domain = true
+#   manage_parent_domain_ns = true
+#   create_haproxy_dns_record = true
+# }
+
+
+module "base_k8s" {
+  source           = "./base-k8s"
   tenancy_id       = var.tenancy_id
   compartment_id   = var.compartment_id
   cluster_name     = "test"
   domain           = "oci.mojaloop"
-  ad_count         = 3
+  ad_count         = 1
   tags             = var.tags
-  bastion_image_id = module.ubuntu_canonical_image.id
-  enable_netmaker  = true
   manage_parent_domain = true
   manage_parent_domain_ns = true
   create_haproxy_dns_record = true
@@ -140,7 +154,7 @@ module "base_infra" {
 #   value       = local.private_subnet_cidrs
 # }
 
-output "public_subnet_id" {
-  value       = module.base_infra.public_subnet_id
+output "vcn_id" {
+  value       = module.base_k8s.vcn_id
 }
 

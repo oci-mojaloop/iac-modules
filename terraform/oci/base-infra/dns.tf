@@ -6,6 +6,12 @@ resource "oci_dns_zone" "private" {
   freeform_tags  = merge({ Name = "${local.cluster_domain}-private" }, local.common_tags)
   scope          = "PRIVATE"
   view_id        = oci_dns_view.private_view[0].id
+  lifecycle {
+    ignore_changes = [
+      freeform_tags,
+      name,
+    ]
+  }
 }
 
 resource "oci_dns_view" "private_view" {
@@ -23,6 +29,12 @@ resource "oci_dns_zone" "cluster_parent" {
   name           = "${local.cluster_parent_domain}."
   zone_type      = "PRIMARY"
   freeform_tags  = merge({ Name = "${local.cluster_domain}-cluster-parent" }, local.common_tags)
+  lifecycle {
+    ignore_changes = [
+      freeform_tags,
+      name,
+    ]
+  }
 }
 
 resource "oci_dns_zone" "public" {
@@ -31,6 +43,12 @@ resource "oci_dns_zone" "public" {
   name           = "${local.cluster_domain}."
   zone_type      = "PRIMARY"
   freeform_tags  = merge({ Name = "${local.cluster_domain}-public" }, local.common_tags)
+  lifecycle {
+    ignore_changes = [
+      freeform_tags,
+      name,
+    ]
+  }
 }
 
 resource "oci_dns_rrset" "haproxy_server_private" {
