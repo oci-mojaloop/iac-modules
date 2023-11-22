@@ -34,6 +34,11 @@ variable "tenancy_id" {
   type        = string
 }
 
+variable "bucket_namespace" {
+  description = "The Object Storage namespace used for the request."
+  type        = string
+}
+
 variable "user_id" {
   description = "The id of the user that terraform will use to create the resources."
   type        = string
@@ -81,6 +86,7 @@ module "base_k8s" {
   source           = "./base-k8s"
   tenancy_id       = var.tenancy_id
   compartment_id   = var.compartment_id
+  bucket_namespace = var.bucket_namespace
   cluster_name     = "test"
   domain           = "oci.mojaloop"
   ad_count         = 1

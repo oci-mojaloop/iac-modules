@@ -22,15 +22,18 @@ module "base_infra" {
   create_haproxy_dns_record = true
 }
 
-# module "post_config" {
-#   source                     = "../post-config-k8s"
-#   name                       = var.cluster_name
-#   domain                     = var.domain
-#   tags                       = var.tags
-#   private_zone_id            = module.base_infra.private_zone.id
-#   public_zone_id             = module.base_infra.public_zone.id
-#   longhorn_backup_s3_destroy = var.longhorn_backup_object_store_destroy
-# }
+module "post_config" {
+  source                     = "../post-config-k8s"
+  tenancy_id                 = var.tenancy_id
+  compartment_id             = var.compartment_id
+  bucket_namespace           = var.bucket_namespace
+  name                       = var.cluster_name
+  domain                     = var.domain
+  tags                       = var.tags
+  private_zone_id            = module.base_infra.private_zone.id
+  public_zone_id             = module.base_infra.public_zone.id
+  longhorn_backup_s3_destroy = var.longhorn_backup_object_store_destroy
+}
 
 # module "k6s_test_harness" {
 #   count                       = var.enable_k6s_test_harness ? 1 : 0

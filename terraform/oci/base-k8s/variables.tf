@@ -11,6 +11,11 @@ variable "tenancy_id" {
   type        = string
 }
 
+variable "bucket_namespace" {
+  description = "The Object Storage namespace used for the request."
+  type        = string
+}
+
 
 variable "create_haproxy_dns_record" {
   default     = false
