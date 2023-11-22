@@ -4,12 +4,14 @@ resource "oci_identity_user" "user_external_dns" {
   description    = "${var.name}-external-dns"
   name           = "${var.name}-external-dns"
   freeform_tags  = merge({ Name = "${var.name}-user-external-dns" }, var.tags)
+  provider       = oci.home_region
 }
 
 
 resource "oci_identity_api_key" "user_external_dns_api_key" {
   key_value = tls_private_key.user_external_dns_key.public_key_pem
   user_id   = oci_identity_user.user_external_dns.id
+  provider       = oci.home_region
 }
 
 
@@ -18,6 +20,7 @@ resource "oci_identity_policy" "user_external_dns_policy" {
   description    = "Policy for user to manage dns records"
   name           = "${var.name}-external-dns"
   statements     = local.external_dns_compartment_statements
+  provider       = oci.home_region
 }
 
 

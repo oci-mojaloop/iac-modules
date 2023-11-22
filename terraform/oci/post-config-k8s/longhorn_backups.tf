@@ -10,11 +10,13 @@ resource "oci_identity_user" "longhorn_backups" {
   description    = "${local.base_domain}-lhbck"
   name           = "${local.base_domain}-lhbck"
   freeform_tags  = merge({ Name = "${var.name}-longhorn_backups" }, var.tags)
+  provider       = oci.home_region
 }
 
 resource "oci_identity_customer_secret_key" "longhorn_backups_secret_key" {
   display_name = "${local.base_domain}-lhbck-s3-keys"
   user_id      = oci_identity_user.longhorn_backups.id
+  provider       = oci.home_region
 }
 
 resource "oci_identity_policy" "longhorn_backups_policy" {
@@ -22,6 +24,7 @@ resource "oci_identity_policy" "longhorn_backups_policy" {
   description    = "IAM Policy to allow longhorn store objects"
   name           = "${local.base_domain}-lhbck"
   statements     = local.longhorn_backups_statements
+  provider       = oci.home_region
 }
 
 

@@ -5,8 +5,8 @@ output "secrets_var_map" {
   value = {
     # route53_external_dns_access_key = aws_iam_access_key.route53-external-dns.id
     # route53_external_dns_secret_key = aws_iam_access_key.route53-external-dns.secret
-    longhorn_backups_access_key     = oci_identity_customer_secret_key.longhorn_backups_secret_key.id
-    longhorn_backups_secret_key     = oci_identity_customer_secret_key.longhorn_backups_secret_key.key
+    longhorn_backups_access_key = oci_identity_customer_secret_key.longhorn_backups_secret_key.id
+    longhorn_backups_secret_key = oci_identity_customer_secret_key.longhorn_backups_secret_key.key
   }
 }
 

@@ -27,6 +27,9 @@ module "post_config" {
   tenancy_id                 = var.tenancy_id
   compartment_id             = var.compartment_id
   bucket_namespace           = var.bucket_namespace
+  user_id                    = var.user_id
+  api_fingerprint            = var.api_fingerprint
+  api_private_key_path       = var.api_private_key_path
   name                       = var.cluster_name
   domain                     = var.domain
   tags                       = var.tags
