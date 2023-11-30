@@ -97,6 +97,7 @@ module "base_k8s" {
   manage_parent_domain      = true
   manage_parent_domain_ns   = true
   create_haproxy_dns_record = true
+  enable_k6s_test_harness   = true
 }
 
 # data "oci_identity_availability_domains" "ads" {

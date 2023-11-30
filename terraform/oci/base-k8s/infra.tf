@@ -38,21 +38,22 @@ module "post_config" {
   longhorn_backup_s3_destroy = var.longhorn_backup_object_store_destroy
 }
 
-# module "k6s_test_harness" {
-#   count                       = var.enable_k6s_test_harness ? 1 : 0
-#   source                      = "../k6s-test-harness"
-#   cluster_name                = var.cluster_name
-#   domain                      = var.domain
-#   tags                        = var.tags
-#   vpc_cidr                    = var.vpc_cidr
-#   vpc_id                      = module.base_infra.vpc_id
-#   ami_id                      = module.ubuntu_focal_ami.id
-#   docker_server_instance_type = var.k6s_docker_server_instance_type
-#   subnet_id                   = module.base_infra.private_subnets[0]
-#   key_pair_name               = module.base_infra.key_pair_name
-#   public_zone_id              = module.base_infra.public_zone.id
-#   test_harness_hostname       = var.k6s_docker_server_fqdn
-# }
+module "k6s_test_harness" {
+  count                       = var.enable_k6s_test_harness ? 1 : 0
+  source                      = "../k6s-test-harness"
+  compartment_id              = var.compartment_id
+  cluster_name                = var.cluster_name
+  domain                      = var.domain
+  tags                        = var.tags
+  vcn_cidr                    = var.vcn_cidr
+  vcn_id                      = module.base_infra.vcn_id
+  compute_image_id            = module.ubuntu_canonical_image.id
+  docker_server_instance_type = var.k6s_docker_server_instance_type
+  subnet_id                   = module.base_infra.private_subnet_id
+  key_pair_name               = module.base_infra.key_pair_name
+  public_zone_id              = module.base_infra.public_zone.id
+  test_harness_hostname       = var.k6s_docker_server_fqdn
+}
 
 #############################
 ### Create Nodes
