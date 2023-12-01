@@ -22,15 +22,18 @@ module "base_infra" {
 
 
 
-# module "post_config" {
-#   source                      = "../post-config-control-center"
-#   name                        = local.name
-#   domain                      = local.base_domain
-#   public_zone_id              = module.base_infra.public_zone.zone_id
-#   private_zone_id             = module.base_infra.private_zone.zone_id
-#   tags                        = var.tags
-#   days_retain_gitlab_snapshot = var.days_retain_gitlab_snapshot
-# }
+module "post_config" {
+  source                      = "../post-config-control-center"
+  tenancy_id                  = var.tenancy_id
+  compartment_id              = var.compartment_id
+  name                        = local.name
+  domain                      = local.base_domain
+  public_zone_id              = module.base_infra.public_zone.id
+  private_zone_id             = module.base_infra.private_zone.id
+  tags                        = var.tags
+  days_retain_gitlab_snapshot = var.days_retain_gitlab_snapshot
+  gitlab_block_volume_id      = oci_core_volume.gitlab_server_block_volume.id
+}
 
 resource "oci_core_instance" "gitlab_server" {
   availability_domain = data.oci_identity_availability_domain.ad.name

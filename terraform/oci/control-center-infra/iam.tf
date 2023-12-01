@@ -1,6 +1,6 @@
 # Individual Rules
 locals {
-  gitlab_instance_in_compartment_rule    = ["ALL {instance.id = '${oci_core_instance.gitlab_server.id}'}"]
+  gitlab_instance_in_compartment_rule = ["ALL {instance.id = '${oci_core_instance.gitlab_server.id}'}"]
 }
 
 locals {
