@@ -133,11 +133,13 @@ locals {
     name       = name
     cidr_block = local.public_subnet_cidrs[idx]
     type       = "public"
+    dns_label  = "public"
   } }
   private_subnets = { for idx, name in local.private_subnets_list : "private_sub${idx + 1}" => {
     name       = name
     cidr_block = local.private_subnet_cidrs[idx]
     type       = "private"
+    dns_label  = "private"
   } }
   subnet_maps                  = merge(local.public_subnets, local.private_subnets)
   public_subnet_id             = lookup(module.vcn.subnet_id, "public-subnet", null)
