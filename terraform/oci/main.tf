@@ -67,7 +67,7 @@ module "control-center-infra" {
   tenancy_id                = var.tenancy_id
   compartment_id            = var.compartment_id
   cluster_name              = "test"
-  domain                    = "oci.mojaloop"
+  domain                    = "mojaloop.ocloud.today"
   ad_count                  = 1
   tags                      = var.tags
 }

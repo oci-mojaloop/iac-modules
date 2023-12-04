@@ -11,7 +11,8 @@ variable "tenancy_id" {
 variable "spf_record" {
   description = "An SPF TXT record is used to establish trust between sending and receiving mail servers."
   type        = string
-  default     = "v=spf1 include:rp.oracleemaildelivery.com include:ap.rp.oracleemaildelivery.com include:eu.rp.oracleemaildelivery.com ~all"
+  # default     = "=spf1 include:rp.oracleemaildelivery.com include:ap.rp.oracleemaildelivery.com include:eu.rp.oracleemaildelivery.com ~all"
+  default     = "v=spf1 include:ap.rp.oracleemaildelivery.com ~all"
 }
 
 variable "gitlab_block_volume_id" {
