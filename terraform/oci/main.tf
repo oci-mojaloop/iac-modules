@@ -62,14 +62,19 @@ variable "tags" {
 }
 
 
-module "control-center-infra" {
-  source                    = "./control-center-infra"
-  tenancy_id                = var.tenancy_id
-  compartment_id            = var.compartment_id
-  cluster_name              = "test"
-  domain                    = "mojaloop.ocloud.today"
-  ad_count                  = 1
-  tags                      = var.tags
+module "oke" {
+  source                  = "./oke"
+  tenancy_id              = var.tenancy_id
+  compartment_id          = var.compartment_id
+  bucket_namespace        = var.bucket_namespace
+  region                  = var.region
+  cluster_name            = "test"
+  domain                  = "mojaloop.ocloud.today"
+  manage_parent_domain    = false
+  manage_parent_domain_ns = false
+  enable_k6s_test_harness = true
+  ad_count                = 1
+  tags                    = var.tags
 }
 
 # data "oci_identity_availability_domains" "ads" {

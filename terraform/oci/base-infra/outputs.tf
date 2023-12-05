@@ -43,6 +43,10 @@ output "private_subnets_cidr_blocks" {
   value = module.vcn.subnet_all_attributes.private_sub1.cidr_block
 }
 
+output "public_subnets_cidr_blocks" {
+  value = module.vcn.subnet_all_attributes.public_sub1.cidr_block
+}
+
 # output "default_security_group_id" {
 #   value = module.vpc.default_security_group_id
 # }
