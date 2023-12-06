@@ -19,6 +19,7 @@ terraform {
       version = "${local.cloud_platform_vars.awsutils_provider_version}"
     }
     %{ endif }
+
     %{ if get_env("CONTROL_CENTER_CLOUD_PROVIDER") == "oci" }
     oci = {
       source  = "oracle/oci"
@@ -35,6 +36,7 @@ provider "awsutils" {
   region = "${local.env_vars.region}"
 }
 %{ endif }
+
 %{ if get_env("CONTROL_CENTER_CLOUD_PROVIDER") == "oci" }
 provider "oci" {
   region = "${local.env_vars.region}"
