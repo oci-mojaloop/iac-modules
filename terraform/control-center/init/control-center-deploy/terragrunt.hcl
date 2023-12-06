@@ -1,5 +1,5 @@
 terraform {
-  source = "git::https://github.com/mojaloop/iac-modules.git//terraform/${get_env("CONTROL_CENTER_CLOUD_PROVIDER")}/control-center-infra?ref=${get_env("IAC_TERRAFORM_MODULES_TAG")}"
+  source = "git::${get_env("IAC_TERRAFORM_MODULES_REPO")}//terraform/${get_env("CONTROL_CENTER_CLOUD_PROVIDER")}/control-center-infra?ref=${get_env("IAC_TERRAFORM_MODULES_TAG")}"
 }
 
 
@@ -19,6 +19,13 @@ terraform {
       version = "${local.cloud_platform_vars.awsutils_provider_version}"
     }
     %{ endif }
+
+    %{ if get_env("CONTROL_CENTER_CLOUD_PROVIDER") == "oci" }
+    oci = {
+      source  = "oracle/oci"
+      version = "${local.cloud_platform_vars.oci_provider_version}"
+    }
+    %{ endif }
   }
 }
 %{ if get_env("CONTROL_CENTER_CLOUD_PROVIDER") == "aws" }
@@ -26,6 +33,12 @@ provider "aws" {
   region = "${local.env_vars.region}"
 }
 provider "awsutils" {
+  region = "${local.env_vars.region}"
+}
+%{ endif }
+
+%{ if get_env("CONTROL_CENTER_CLOUD_PROVIDER") == "oci" }
+provider "oci" {
   region = "${local.env_vars.region}"
 }
 %{ endif }
