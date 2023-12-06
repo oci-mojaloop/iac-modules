@@ -16,6 +16,12 @@ variable "ad_count" {
   description = "Number of ads"
 }
 
+variable "new_bits" {
+  type        = number
+  default     = 1
+  description = "CIDR newbits"
+}
+
 variable "ad_number" {
   description = "the AD to place the operator host"
   default     = 1

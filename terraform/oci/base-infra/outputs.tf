@@ -30,6 +30,10 @@ output "subnet_id" {
   value = module.vcn.subnet_id
 }
 
+output "nat_route_id" {
+  value = module.vcn.nat_route_id
+}
+
 output "public_subnet_id" {
   value = module.vcn.subnet_id.public-subnet
 }

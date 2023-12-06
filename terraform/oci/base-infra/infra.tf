@@ -5,7 +5,7 @@ module "subnet_addrs" {
   networks = [
     for subnet in concat(local.private_subnets_list, local.public_subnets_list) : {
       name     = subnet
-      new_bits = 1
+      new_bits = var.new_bits
     }
   ]
 

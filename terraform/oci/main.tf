@@ -62,19 +62,14 @@ variable "tags" {
 }
 
 
-module "oke" {
-  source                  = "./oke"
-  tenancy_id              = var.tenancy_id
-  compartment_id          = var.compartment_id
-  bucket_namespace        = var.bucket_namespace
-  region                  = var.region
-  cluster_name            = "test"
-  domain                  = "mojaloop.ocloud.today"
-  manage_parent_domain    = false
-  manage_parent_domain_ns = false
-  enable_k6s_test_harness = true
-  ad_count                = 1
-  tags                    = var.tags
+module "support-svcs" {
+  source                       = "./support-svcs/deploy-managed-svcs"
+  tenancy_id                   = var.tenancy_id
+  compartment_id               = var.compartment_id
+  deployment_name              = "supportsvcs"
+  managed_services_config_file = "/tmp/mojaloop_supportsvcs.json"
+  ad_count                     = 1
+  tags                         = var.tags
 }
 
 # data "oci_identity_availability_domains" "ads" {
