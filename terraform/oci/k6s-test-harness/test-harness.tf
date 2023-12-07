@@ -89,7 +89,6 @@ resource "oci_core_network_security_group_security_rule" "k6s_docker_server_rule
   protocol                  = "6"
   source                    = var.vcn_cidr
   source_type               = "CIDR_BLOCK"
-  stateless                 = true
   tcp_options {
     destination_port_range {
       max = var.k6s_listening_ports[count.index]
@@ -111,7 +110,6 @@ resource "oci_core_network_security_group_security_rule" "k6s_docker_server_ssh"
   protocol                  = "6"
   source                    = var.vcn_cidr
   source_type               = "CIDR_BLOCK"
-  stateless                 = true
   tcp_options {
     destination_port_range {
       max = 22
@@ -130,7 +128,6 @@ resource "oci_core_network_security_group_security_rule" "k6s_docker_server_egre
   protocol                  = "all"
   destination               = "0.0.0.0/0"
   destination_type          = "CIDR_BLOCK"
-  stateless                 = true
 }
 
 resource "oci_dns_rrset" "test_harness_private" {

@@ -13,7 +13,6 @@ resource "oci_core_network_security_group_security_rule" "gitlab_server_egress_a
   protocol                  = "all"
   destination               = "0.0.0.0/0"
   destination_type          = "CIDR_BLOCK"
-  stateless                 = true
 }
 
 resource "oci_core_network_security_group_security_rule" "gitlab_server_ingress_ssh" {
@@ -22,7 +21,6 @@ resource "oci_core_network_security_group_security_rule" "gitlab_server_ingress_
   protocol                  = "6"
   source                    = var.vcn_cidr
   source_type               = "CIDR_BLOCK"
-  stateless                 = true
   tcp_options {
     destination_port_range {
       max = "22"
@@ -41,7 +39,6 @@ resource "oci_core_network_security_group_security_rule" "gitlab_server_ingress_
   protocol                  = "6"
   source                    = "0.0.0.0/0"
   source_type               = "CIDR_BLOCK"
-  stateless                 = true
   tcp_options {
     destination_port_range {
       max = "80"
@@ -60,7 +57,6 @@ resource "oci_core_network_security_group_security_rule" "gitlab_server_ingress_
   protocol                  = "6"
   source                    = "0.0.0.0/0"
   source_type               = "CIDR_BLOCK"
-  stateless                 = true
   tcp_options {
     destination_port_range {
       max = "443"
@@ -81,7 +77,6 @@ resource "oci_core_network_security_group_security_rule" "gitlab_server_ingress_
   protocol                  = "6"
   source                    = var.vcn_cidr
   source_type               = "CIDR_BLOCK"
-  stateless                 = true
   tcp_options {
     destination_port_range {
       max = "5050"
@@ -108,7 +103,6 @@ resource "oci_core_network_security_group_security_rule" "docker_server_ingress_
   protocol                  = "6"
   source                    = var.vcn_cidr
   source_type               = "CIDR_BLOCK"
-  stateless                 = true
   tcp_options {
     destination_port_range {
       max = "22"
@@ -128,7 +122,6 @@ resource "oci_core_network_security_group_security_rule" "docker_server_ingress_
   protocol                  = "6"
   source                    = var.vcn_cidr
   source_type               = "CIDR_BLOCK"
-  stateless                 = true
   tcp_options {
     destination_port_range {
       max = var.nexus_admin_listening_port
@@ -148,7 +141,6 @@ resource "oci_core_network_security_group_security_rule" "docker_server_ingress_
   protocol                  = "6"
   source                    = var.vcn_cidr
   source_type               = "CIDR_BLOCK"
-  stateless                 = true
   tcp_options {
     destination_port_range {
       max = var.nexus_docker_repo_listening_port
@@ -168,7 +160,6 @@ resource "oci_core_network_security_group_security_rule" "docker_server_ingress_
   protocol                  = "6"
   source                    = var.vcn_cidr
   source_type               = "CIDR_BLOCK"
-  stateless                 = true
   tcp_options {
     destination_port_range {
       max = var.seaweedfs_s3_listening_port
@@ -188,7 +179,6 @@ resource "oci_core_network_security_group_security_rule" "docker_server_ingress_
   protocol                  = "6"
   source                    = var.vcn_cidr
   source_type               = "CIDR_BLOCK"
-  stateless                 = true
   tcp_options {
     destination_port_range {
       max = var.vault_listening_port
@@ -208,7 +198,6 @@ resource "oci_core_network_security_group_security_rule" "docker_server_ingress_
   protocol                  = "17"
   source                    = "0.0.0.0/0"
   source_type               = "CIDR_BLOCK"
-  stateless                 = true
   udp_options {
     destination_port_range {
       max = "51825"
@@ -228,6 +217,5 @@ resource "oci_core_network_security_group_security_rule" "docker_server_egress_a
   protocol                  = "all"
   destination               = "0.0.0.0/0"
   destination_type          = "CIDR_BLOCK"
-  stateless                 = true
 }
 

@@ -43,7 +43,6 @@ resource "oci_core_network_security_group_security_rule" "netmaker_ssh" {
   protocol                  = "6"
   source                    = "0.0.0.0/0"
   source_type               = "CIDR_BLOCK"
-  stateless                 = true
   tcp_options {
     destination_port_range {
       max = 22
@@ -64,7 +63,6 @@ resource "oci_core_network_security_group_security_rule" "netmaker_wireguard" {
   protocol                  = "17"
   source                    = "0.0.0.0/0"
   source_type               = "CIDR_BLOCK"
-  stateless                 = true
   udp_options {
     destination_port_range {
       max = 51825
@@ -85,7 +83,6 @@ resource "oci_core_network_security_group_security_rule" "netmaker_stun" {
   protocol                  = "17"
   source                    = "0.0.0.0/0"
   source_type               = "CIDR_BLOCK"
-  stateless                 = true
   udp_options {
     destination_port_range {
       max = 3478
@@ -106,7 +103,6 @@ resource "oci_core_network_security_group_security_rule" "netmaker_proxy" {
   protocol                  = "6"
   source                    = "0.0.0.0/0"
   source_type               = "CIDR_BLOCK"
-  stateless                 = true
   tcp_options {
     destination_port_range {
       max = 443
@@ -126,7 +122,6 @@ resource "oci_core_network_security_group_security_rule" "netmaker_egress_all" {
   protocol                  = "all"
   destination               = "0.0.0.0/0"
   destination_type          = "CIDR_BLOCK"
-  stateless                 = true
 }
 
 resource "oci_core_instance" "netmaker" {

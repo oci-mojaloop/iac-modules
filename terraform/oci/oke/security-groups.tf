@@ -15,7 +15,6 @@ resource "oci_core_network_security_group_security_rule" "ingress_http" {
   protocol                  = "6"
   source                    = "0.0.0.0/0"
   source_type               = "CIDR_BLOCK"
-  stateless                 = true
   tcp_options {
     destination_port_range {
       max = var.target_group_external_http_port
@@ -34,7 +33,6 @@ resource "oci_core_network_security_group_security_rule" "ingress_https" {
   protocol                  = "6"
   source                    = "0.0.0.0/0"
   source_type               = "CIDR_BLOCK"
-  stateless                 = true
   tcp_options {
     destination_port_range {
       max = var.target_group_external_https_port
@@ -53,7 +51,6 @@ resource "oci_core_network_security_group_security_rule" "ingress_health_externa
   protocol                  = "6"
   source                    = "0.0.0.0/0"
   source_type               = "CIDR_BLOCK"
-  stateless                 = true
   tcp_options {
     destination_port_range {
       max = var.target_group_external_health_port
@@ -72,7 +69,6 @@ resource "oci_core_network_security_group_security_rule" "ingress_http_internal"
   protocol                  = "6"
   source                    = var.vcn_cidr
   source_type               = "CIDR_BLOCK"
-  stateless                 = true
   tcp_options {
     destination_port_range {
       max = var.target_group_internal_http_port
@@ -91,7 +87,6 @@ resource "oci_core_network_security_group_security_rule" "ingress_https_internal
   protocol                  = "6"
   source                    = var.vcn_cidr
   source_type               = "CIDR_BLOCK"
-  stateless                 = true
   tcp_options {
     destination_port_range {
       max = var.target_group_internal_https_port
@@ -110,7 +105,6 @@ resource "oci_core_network_security_group_security_rule" "ingress_health_interna
   protocol                  = "6"
   source                    = var.vcn_cidr
   source_type               = "CIDR_BLOCK"
-  stateless                 = true
   tcp_options {
     destination_port_range {
       max = var.target_group_internal_health_port
@@ -129,7 +123,7 @@ resource "oci_core_network_security_group_security_rule" "ingress_istio_webhook_
   protocol                  = "6"
   source                    = var.vcn_cidr
   source_type               = "CIDR_BLOCK"
-  stateless                 = true
+  
   tcp_options {
     destination_port_range {
       max = "15017"
@@ -148,7 +142,7 @@ resource "oci_core_network_security_group_security_rule" "ingress_vpn" {
   protocol                  = "17"
   source                    = "0.0.0.0/0"
   source_type               = "CIDR_BLOCK"
-  stateless                 = true
+  
   udp_options {
     destination_port_range {
       max = var.wireguard_port
@@ -168,7 +162,7 @@ resource "oci_core_network_security_group_security_rule" "ingress_self" {
   protocol                  = "all"
   source                    = "0.0.0.0/0"
   source_type               = "CIDR_BLOCK"
-  stateless                 = true
+  
 }
 
 resource "oci_core_network_security_group_security_rule" "ingress_egress_all" {
@@ -177,7 +171,7 @@ resource "oci_core_network_security_group_security_rule" "ingress_egress_all" {
   protocol                  = "all"
   destination               = "0.0.0.0/0"
   destination_type          = "CIDR_BLOCK"
-  stateless                 = true
+  
 }
 
 
@@ -195,7 +189,7 @@ resource "oci_core_network_security_group_security_rule" "self_self" {
   protocol                  = "all"
   source                    = "0.0.0.0/0"
   source_type               = "CIDR_BLOCK"
-  stateless                 = true
+  
 }
 
 resource "oci_core_network_security_group_security_rule" "internal_ssh" {
@@ -204,7 +198,7 @@ resource "oci_core_network_security_group_security_rule" "internal_ssh" {
   protocol                  = "6"
   source                    = var.vcn_cidr
   source_type               = "CIDR_BLOCK"
-  stateless                 = true
+  
   tcp_options {
     destination_port_range {
       max = "22"
@@ -223,7 +217,7 @@ resource "oci_core_network_security_group_security_rule" "self_master" {
   protocol                  = "6"
   source                    = var.vcn_cidr
   source_type               = "CIDR_BLOCK"
-  stateless                 = true
+  
   tcp_options {
     destination_port_range {
       max = "6443"
@@ -243,7 +237,7 @@ resource "oci_core_network_security_group_security_rule" "self_https_external" {
   protocol                  = "6"
   source                    = var.vcn_cidr
   source_type               = "CIDR_BLOCK"
-  stateless                 = true
+  
   tcp_options {
     destination_port_range {
       max = "443"
@@ -262,7 +256,7 @@ resource "oci_core_network_security_group_security_rule" "self_http_external" {
   protocol                  = "6"
   source                    = var.vcn_cidr
   source_type               = "CIDR_BLOCK"
-  stateless                 = true
+  
   tcp_options {
     destination_port_range {
       max = "80"
@@ -281,7 +275,7 @@ resource "oci_core_network_security_group_security_rule" "self_https_internal" {
   protocol                  = "6"
   source                    = var.vcn_cidr
   source_type               = "CIDR_BLOCK"
-  stateless                 = true
+  
   tcp_options {
     destination_port_range {
       max = "8443"
@@ -300,7 +294,7 @@ resource "oci_core_network_security_group_security_rule" "self_http_internal" {
   protocol                  = "6"
   source                    = var.vcn_cidr
   source_type               = "CIDR_BLOCK"
-  stateless                 = true
+  
   tcp_options {
     destination_port_range {
       max = "8080"
@@ -321,5 +315,5 @@ resource "oci_core_network_security_group_security_rule" "self_egress_all" {
   protocol                  = "all"
   destination               = "0.0.0.0/0"
   destination_type          = "CIDR_BLOCK"
-  stateless                 = true
+  
 }
