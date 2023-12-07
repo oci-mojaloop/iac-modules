@@ -36,22 +36,23 @@ module "generate_mcm_files" {
     dfsp_client_cert_bundle              = local.dfsp_client_cert_bundle
     dfsp_internal_whitelist_secret       = local.dfsp_internal_whitelist_secret
     dfsp_external_whitelist_secret       = local.dfsp_external_whitelist_secret
-    onboarding_secret_name_prefix        = var.onboarding_secret_name_prefix
-    whitelist_secret_name_prefix         = var.whitelist_secret_name_prefix
+    onboarding_secret_path               = local.dfsp_client_cert_bundle
+    whitelist_secret_path                = local.whitelist_secret_path
     mcm_service_account_name             = var.mcm_service_account_name
     pki_client_role                      = var.pki_client_cert_role
     pki_server_role                      = var.pki_server_cert_role
     mcm_vault_k8s_role_name              = var.mcm_vault_k8s_role_name
     k8s_auth_path                        = var.k8s_auth_path
-    mcm_secret_path                      = var.mcm_secret_path
+    mcm_secret_path                      = local.mcm_secret_path
     totp_issuer                          = "not-used-yet"
     token_issuer_fqdn                    = "keycloak.${var.public_subdomain}"
-    istio_namespace                      = var.istio_namespace
     nginx_external_namespace             = var.nginx_external_namespace
     istio_internal_wildcard_gateway_name = var.istio_internal_wildcard_gateway_name
     istio_internal_gateway_namespace     = var.istio_internal_gateway_namespace
     istio_external_wildcard_gateway_name = var.istio_external_wildcard_gateway_name
     istio_external_gateway_namespace     = var.istio_external_gateway_namespace
+    istio_egress_gateway_name            = var.istio_egress_gateway_name
+    istio_egress_gateway_namespace       = var.istio_egress_gateway_namespace
     mcm_wildcard_gateway                 = local.mcm_wildcard_gateway
     istio_external_gateway_name          = var.istio_external_gateway_name
     private_network_cidr                 = var.private_network_cidr
@@ -72,6 +73,10 @@ module "generate_mcm_files" {
     external_load_balancer_dns           = var.external_load_balancer_dns
     istio_internal_gateway_name          = var.istio_internal_gateway_name
     int_interop_switch_fqdn              = var.internal_interop_switch_fqdn
+    mojaloop_namespace                   = var.mojaloop_namespace
+    mojaloop_release_name                = var.mojaloop_release_name
+    onboarding_collection_tag            = var.app_var_map.onboarding_collection_tag
+    switch_jws_public_key                = tls_private_key.jws.public_key_pem
   }
   file_list       = ["values-mcm.yaml", "kustomization.yaml", "vault-rbac.yaml", "vault-secret.yaml", "vault-agent.yaml", "keycloak-realm-cr.yaml", "configmaps/vault-config-configmap.hcl", "configmaps/vault-config-init-configmap.hcl", "istio-gateway.yaml", "vault-certificate.yaml"]
   template_path   = "${path.module}/../generate-files/templates/mcm"
@@ -137,22 +142,10 @@ variable "mcm_namespace" {
   default     = "mcm"
 }
 
-variable "onboarding_secret_name_prefix" {
-  type        = string
-  description = "vault secret prefix for dfsp onboarding entries"
-  default     = "secret/onboarding"
-}
-
 variable "mcm_service_account_name" {
   type        = string
   description = "service account name for mcm"
   default     = "mcm"
-}
-
-variable "mcm_secret_path" {
-  description = "vault kv secret path for mcm use"
-  type        = string
-  default     = "secret/mcm"
 }
 
 variable "mcm_vault_k8s_role_name" {
@@ -170,11 +163,6 @@ variable "vault_certman_secretname" {
   description = "secret name to create for tls offloading via certmanager"
   type        = string
   default     = "vault-tls-cert"
-}
-
-variable "istio_namespace" {
-  type        = string
-  description = "istio_namespace"
 }
 variable "nginx_external_namespace" {
   type        = string
@@ -219,7 +207,7 @@ variable "mcm_public_fqdn" {
 locals {
   mcm_resource_index             = index(local.stateful_resources.*.resource_name, "mcm-db")
   mcm_wildcard_gateway           = var.mcm_ingress_internal_lb ? "internal" : "external"
-  dfsp_client_cert_bundle        = "${var.onboarding_secret_name_prefix}_pm4mls"
-  dfsp_internal_whitelist_secret = "${var.whitelist_secret_name_prefix}_pm4mls"
-  dfsp_external_whitelist_secret = "${var.whitelist_secret_name_prefix}_fsps"
+  dfsp_client_cert_bundle        = "${local.onboarding_secret_path}_pm4mls"
+  dfsp_internal_whitelist_secret = "${local.whitelist_secret_path}_pm4mls"
+  dfsp_external_whitelist_secret = "${local.whitelist_secret_path}_fsps"
 }

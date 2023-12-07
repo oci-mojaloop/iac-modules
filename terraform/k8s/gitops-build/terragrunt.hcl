@@ -15,7 +15,7 @@ dependency "k8s_store_config" {
 dependency "k8s_deploy" {
   config_path = "../k8s-deploy"
   mock_outputs = {
-    nat_public_ips                   = ""
+    nat_public_ips                 = [""]
     internal_load_balancer_dns       = ""
     external_load_balancer_dns       = ""
     private_subdomain                = ""
@@ -37,6 +37,7 @@ dependency "k8s_deploy" {
     }
     haproxy_server_fqdn  = "null"
     private_network_cidr = ""
+    dns_provider = ""
   }
   mock_outputs_allowed_terraform_commands = ["init", "validate", "plan", "show"]
   mock_outputs_merge_strategy_with_state  = "shallow"
@@ -57,21 +58,8 @@ inputs = {
   internal_ingress_http_port               = dependency.k8s_deploy.outputs.target_group_internal_http_port
   external_ingress_https_port              = dependency.k8s_deploy.outputs.target_group_external_https_port
   external_ingress_http_port               = dependency.k8s_deploy.outputs.target_group_external_http_port
-  cert_manager_chart_version               = local.common_vars.cert_manager_chart_version
-  consul_chart_version                     = local.common_vars.consul_chart_version
-  longhorn_chart_version                   = local.common_vars.longhorn_chart_version
-  external_dns_chart_version               = local.common_vars.external_dns_chart_version
-  vault_chart_version                      = local.common_vars.vault_chart_version
-  vault_config_operator_helm_chart_version = local.common_vars.vault_config_operator_helm_chart_version
-  nginx_helm_chart_version                 = local.common_vars.nginx_helm_chart_version
-  loki_chart_version                       = local.common_vars.loki_chart_version
-  mojaloop_chart_version                   = local.common_vars.mojaloop_chart_version
-  mcm_enabled                              = local.common_vars.mcm_enabled
-  mcm_chart_version                        = local.common_vars.mcm_chart_version
-  mojaloop_enabled                         = local.common_vars.mojaloop_enabled
-  pm4ml_enabled                            = local.common_vars.pm4ml_enabled
-  bulk_enabled                             = local.common_vars.bulk_enabled
-  third_party_enabled                      = local.common_vars.third_party_enabled
+  common_var_map                           = local.common_vars
+  app_var_map                              = merge(local.pm4ml_vars, local.mojaloop_vars)
   output_dir                               = local.GITOPS_BUILD_OUTPUT_DIR
   gitlab_project_url                       = local.GITLAB_PROJECT_URL
   cluster_name                             = local.CLUSTER_NAME
@@ -91,6 +79,7 @@ inputs = {
   transit_vault_key_name                   = local.TRANSIT_VAULT_UNSEAL_KEY_NAME
   transit_vault_url                        = "http://${dependency.k8s_deploy.outputs.haproxy_server_fqdn}:8200"
   private_network_cidr                     = dependency.k8s_deploy.outputs.private_network_cidr
+  dns_provider                             = dependency.k8s_deploy.outputs.dns_provider
 }
 
 locals {
@@ -99,6 +88,8 @@ locals {
   gitlab_readonly_rbac_group    = local.env_vars.gitlab_readonly_rbac_group
   gitlab_admin_rbac_group       = local.env_vars.gitlab_admin_rbac_group
   common_vars                   = yamldecode(file("${find_in_parent_folders("common-vars.yaml")}"))
+  pm4ml_vars                    = yamldecode(file("${find_in_parent_folders("pm4ml-vars.yaml")}"))
+  mojaloop_vars                 = yamldecode(file("${find_in_parent_folders("mojaloop-vars.yaml")}"))
   GITLAB_SERVER_URL             = get_env("GITLAB_SERVER_URL")
   GITOPS_BUILD_OUTPUT_DIR       = get_env("GITOPS_BUILD_OUTPUT_DIR")
   CLUSTER_NAME                  = get_env("CLUSTER_NAME")

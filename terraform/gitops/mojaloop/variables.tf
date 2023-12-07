@@ -20,7 +20,7 @@ variable "gitlab_project_url" {
 }
 
 variable "nat_public_ips" {
-  type        = string
+  type        = list
   description = "nat_public_ips"
 }
 variable "internal_load_balancer_dns" {
@@ -130,6 +130,16 @@ variable "istio_create_ingress_gateways" {
   type        = bool
   description = "should istio create ingress gateways"
   default     = true
+}
+
+variable "istio_egress_gateway_name" {
+  type        = string
+  description = "istio_egress_gateway_name"
+}
+
+variable "istio_egress_gateway_namespace" {
+  type        = string
+  description = "istio_egress_gateway_namespace"
 }
 
 variable "istio_internal_gateway_namespace" {

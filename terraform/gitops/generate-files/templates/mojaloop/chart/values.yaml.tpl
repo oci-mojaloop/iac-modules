@@ -101,6 +101,9 @@ mojaloop:
 
   account-lookup-service:
     account-lookup-service:
+      podLabels:
+        sidecar.istio.io/inject: "${enable_istio_injection}"
+      replicaCount: ${account_lookup_service_replica_count}
       config:
         db_password: *ALS_DB_PASSWORD
         db_secret: *ALS_DB_SECRET
@@ -122,6 +125,7 @@ mojaloop:
         className: *INGRESS_CLASS
         hostname: account-lookup-service.${ingress_subdomain}
     account-lookup-service-admin:
+      replicaCount: ${account_lookup_service_admin_replica_count}
       config:
         db_password: *ALS_DB_PASSWORD
         db_secret: *ALS_DB_SECRET
@@ -143,6 +147,9 @@ mojaloop:
       enabled: false
 
   quoting-service:
+    podLabels:
+      sidecar.istio.io/inject: "${enable_istio_injection}"
+    replicaCount: ${quoting_service_replica_count}
     sidecar:
       enabled: true
     config:
@@ -150,7 +157,7 @@ mojaloop:
       kafka_port: *KAFKA_PORT
       simple_routing_mode_enabled: ${quoting_service_simple_routing_mode_enabled}
       log_transport: "console"
-      log_level: "debug"
+      log_level: "info"
       db_password: *QUOTING_DB_PASSWORD
       db_secret: *QUOTING_DB_SECRET
       db_host: *QUOTING_DB_HOST
@@ -171,6 +178,7 @@ mojaloop:
 
   ml-api-adapter:
     ml-api-adapter-service:
+      replicaCount: ${ml_api_adapter_service_replica_count}
       config:
         kafka_host: *KAFKA_HOST
         kafka_port: *KAFKA_PORT
@@ -185,6 +193,9 @@ mojaloop:
           #nginx.ingress.kubernetes.io/rewrite-target: /$2
         hostname: ml-api-adapter.${ingress_subdomain}
     ml-api-adapter-handler-notification:
+      podLabels:
+        sidecar.istio.io/inject: "${enable_istio_injection}"
+      replicaCount: ${ml_api_adapter_handler_notifications_replica_count}
       config:
         kafka_host: *KAFKA_HOST
         kafka_port: *KAFKA_PORT
@@ -202,6 +213,7 @@ mojaloop:
 
   centralledger:
     centralledger-service:
+      replicaCount: ${central_ledger_service_replica_count}
       config:
         kafka_host: *KAFKA_HOST
         kafka_port: *KAFKA_PORT
@@ -223,6 +235,7 @@ mojaloop:
         path: /admin(/|$)(.*)
         hostname: interop-switch.${ingress_subdomain}
     centralledger-handler-transfer-prepare:
+      replicaCount: ${central_ledger_handler_transfer_prepare_replica_count}
       config:
         kafka_host: *KAFKA_HOST
         kafka_port: *KAFKA_PORT
@@ -241,6 +254,7 @@ mojaloop:
         className: *INGRESS_CLASS
         hostname: central-ledger-transfer-prepare.${ingress_subdomain}
     centralledger-handler-transfer-position:
+      replicaCount: ${central_ledger_handler_transfer_position_replica_count}
       config:
         kafka_host: *KAFKA_HOST
         kafka_port: *KAFKA_PORT
@@ -259,6 +273,7 @@ mojaloop:
         className: *INGRESS_CLASS
         hostname: central-ledger-transfer-position.${ingress_subdomain}
     centralledger-handler-transfer-get:
+      replicaCount: ${central_ledger_handler_transfer_get_replica_count}
       config:
         kafka_host: *KAFKA_HOST
         kafka_port: *KAFKA_PORT
@@ -277,6 +292,7 @@ mojaloop:
         className: *INGRESS_CLASS
         hostname: central-ledger-transfer-get.${ingress_subdomain}
     centralledger-handler-transfer-fulfil:
+      replicaCount: ${central_ledger_handler_transfer_fulfil_replica_count}
       config:
         kafka_host: *KAFKA_HOST
         kafka_port: *KAFKA_PORT
@@ -313,6 +329,7 @@ mojaloop:
         className: *INGRESS_CLASS
         hostname: central-ledger-timeout.${ingress_subdomain}
     centralledger-handler-admin-transfer:
+      replicaCount: ${central_ledger_handler_admin_transfer_replica_count}
       config:
         kafka_host: *KAFKA_HOST
         kafka_port: *KAFKA_PORT
@@ -344,6 +361,7 @@ mojaloop:
           nginx.ingress.kubernetes.io/rewrite-target: /v2/$2
         path: /settlements(/|$)(.*)
         hostname: interop-switch.${ingress_subdomain}
+      replicaCount: ${central_settlement_service_replica_count}
       config:
         kafka_host: *KAFKA_HOST
         kafka_port: *KAFKA_PORT
@@ -354,6 +372,7 @@ mojaloop:
         db_port: *CS_DB_PORT        
         db_database: *CS_DB_DATABASE
     centralsettlement-handler-deferredsettlement:
+      replicaCount: ${central_settlement_handler_deferredsettlement_replica_count}
       config:
         kafka_host: *KAFKA_HOST
         kafka_port: *KAFKA_PORT
@@ -364,6 +383,7 @@ mojaloop:
         db_port: *CS_DB_PORT        
         db_database: *CS_DB_DATABASE
     centralsettlement-handler-grosssettlement:
+      replicaCount: ${central_settlement_handler_grosssettlement_replica_count}
       config:
         kafka_host: *KAFKA_HOST
         kafka_port: *KAFKA_PORT
@@ -375,6 +395,7 @@ mojaloop:
         db_database: *CS_DB_DATABASE
     centralsettlement-handler-rules:
       config:
+        replicaCount: ${central_settlement_handler_rules_replica_count}
         kafka_host: *KAFKA_HOST
         kafka_port: *KAFKA_PORT
         db_password: *CS_DB_PASSWORD
@@ -385,6 +406,9 @@ mojaloop:
         db_database: *CS_DB_DATABASE
 
   transaction-requests-service:
+    podLabels:
+      sidecar.istio.io/inject: "${enable_istio_injection}"
+    replicaCount: ${trasaction_requests_service_replica_count}
     ingress:
 %{ if istio_create_ingress_gateways ~}
       enabled: false
@@ -398,6 +422,9 @@ mojaloop:
     enabled: ${mojaloop_thirdparty_support_enabled}
     auth-svc:
       enabled: true
+      podLabels:
+        sidecar.istio.io/inject: "${enable_istio_injection}"
+      replicaCount: ${auth_service_replica_count}
       config:
         db_host: *TP_AUTH_SVC_DB_HOST
         db_port: *TP_AUTH_SVC_DB_PORT
@@ -418,6 +445,7 @@ mojaloop:
 
     consent-oracle:
       enabled: true
+      replicaCount: ${consent_oracle_replica_count}
       config:
         db_host: *TP_ALS_CONSENT_SVC_DB_HOST
         db_port: *TP_ALS_CONSENT_SVC_DB_PORT
@@ -436,6 +464,9 @@ mojaloop:
 
     tp-api-svc:
       enabled: true
+      podLabels:
+        sidecar.istio.io/inject: "${enable_istio_injection}"
+      replicaCount: ${tp_api_svc_replica_count}
       ingress:
 %{ if istio_create_ingress_gateways ~}
         enabled: false
@@ -462,6 +493,7 @@ mojaloop:
     enabled: ${bulk_enabled}
     bulk-api-adapter:
       bulk-api-adapter-service:
+        replicaCount: ${bulk_api-adapter_service_replica_count}
         config:
           kafka_host: *KAFKA_HOST
           kafka_port: *KAFKA_PORT
@@ -480,6 +512,9 @@ mojaloop:
           className: *INGRESS_CLASS
           hostname: bulk-api-adapter.${ingress_subdomain}
       bulk-api-adapter-handler-notification:
+        podLabels:
+          sidecar.istio.io/inject: "${enable_istio_injection}"
+        replicaCount: ${bulk_api_adapter_handler_notification_replica_count}
         config:
           kafka_host: *KAFKA_HOST
           kafka_port: *KAFKA_PORT
@@ -491,6 +526,7 @@ mojaloop:
           mongo_database: *OBJSTORE_MONGO_DATABASE
     bulk-centralledger:
       cl-handler-bulk-transfer-prepare:
+        replicaCount: ${cl_handler_bulk_transfer_prepare_replica_count}
         config:
           kafka_host: *KAFKA_HOST
           kafka_port: *KAFKA_PORT
@@ -507,6 +543,7 @@ mojaloop:
           mongo_secret: *OBJSTORE_MONGO_SECRET
           mongo_database: *OBJSTORE_MONGO_DATABASE
       cl-handler-bulk-transfer-fulfil:
+        replicaCount: ${cl_handler_bulk_transfer_fulfil_replica_count}
         config:
           kafka_host: *KAFKA_HOST
           kafka_port: *KAFKA_PORT
@@ -523,6 +560,7 @@ mojaloop:
           mongo_secret: *OBJSTORE_MONGO_SECRET
           mongo_database: *OBJSTORE_MONGO_DATABASE
       cl-handler-bulk-transfer-processing:
+        replicaCount: ${cl_handler_bulk_transfer_processing_replica_count}
         config:
           kafka_host: *KAFKA_HOST
           kafka_port: *KAFKA_PORT
@@ -539,6 +577,7 @@ mojaloop:
           mongo_secret: *OBJSTORE_MONGO_SECRET
           mongo_database: *OBJSTORE_MONGO_DATABASE
       cl-handler-bulk-transfer-get:
+        replicaCount: ${cl_handler_bulk_transfer_get_replica_count}
         config:
           kafka_host: *KAFKA_HOST
           kafka_port: *KAFKA_PORT
@@ -807,6 +846,8 @@ mojaloop:
     testCaseEnvironmentFile:  *ttkInputValues
     job:
       enabled: true
+      templateLabels:
+        sidecar.istio.io/inject: "false"
       ## Set the TTL for Job Cleanup - ref: https://kubernetes.io/docs/concepts/workloads/controllers/ttlafterfinished/
       # ttlSecondsAfterFinished: 50
       generateNameEnabled: true
@@ -826,6 +867,8 @@ mojaloop:
     testCaseEnvironmentFile:  *ttkInputValues
     job:
       enabled: true
+      templateLabels:
+        sidecar.istio.io/inject: "false"
       ## Set the TTL for Job Cleanup - ref: https://kubernetes.io/docs/concepts/workloads/controllers/ttlafterfinished/
       # ttlSecondsAfterFinished: 50
       generateNameEnabled: true
