@@ -62,6 +62,10 @@ inputs = {
   ad_count                       = local.env_vars.ad_count
   tenancy_id                     = local.env_vars.tenancy_id
   compartment_id                 = local.env_vars.compartment_id
+  region                         = local.env_vars.region
+  user_id                        = local.env_vars.user_id
+  api_fingerprint                = local.env_vars.api_fingerprint
+  api_private_key_path           = local.env_vars.api_private_key_path
 }
 
 locals {
