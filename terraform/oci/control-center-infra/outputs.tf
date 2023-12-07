@@ -112,6 +112,7 @@ output "all_hosts_var_maps" {
     base_domain            = local.base_domain
     gitlab_external_url    = "https://${oci_dns_rrset.gitlab_server_public.domain}"
     netmaker_image_version = var.netmaker_image_version
+    cloud_platform         = var.cloud_platform
   }
 }
 
@@ -140,6 +141,7 @@ output "docker_hosts_var_maps" {
     vault_listening_port             = var.vault_listening_port
     vault_fqdn                       = oci_dns_rrset.vault_server_private.domain
     vault_gitlab_token               = random_password.gitlab_root_token.result
+    cloud_platform                   = var.cloud_platform
   }
 }
 
@@ -154,6 +156,7 @@ output "netmaker_hosts_var_maps" {
     netmaker_oidc_issuer          = "https://${oci_dns_rrset.gitlab_server_public.domain}"
     netmaker_control_network_name = var.netmaker_control_network_name
     ansible_ssh_common_args       = "-o StrictHostKeyChecking=no"
+    cloud_platform                = var.cloud_platform
   }
 }
 
@@ -165,6 +168,7 @@ output "bastion_hosts_var_maps" {
     ansible_ssh_common_args = "-o StrictHostKeyChecking=no"
     egress_gateway_cidr     = var.vcn_cidr
     netmaker_master_key     = random_password.netmaker_master_key.result
+    cloud_platform          = var.cloud_platform
   }
 }
 

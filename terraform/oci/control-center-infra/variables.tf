@@ -8,6 +8,12 @@ variable "tenancy_id" {
   type        = string
 }
 
+variable "cloud_platform" {
+  description = "Cloud service provider"
+  default     = "oci"
+  type        = string
+}
+
 # variable "api_fingerprint" {
 #   default     = ""
 #   description = "Fingerprint of the API private key to use with OCI API."

@@ -9,8 +9,8 @@
 # }
 
 provider "oci" {
-  alias            = "home_region"
-  region           = lookup(data.oci_identity_regions.home_region.regions[0], "name")
+  alias  = "home_region"
+  region = lookup(data.oci_identity_regions.home_region.regions[0], "name")
   # tenancy_ocid     = var.tenancy_id
   # user_ocid        = var.user_id
   # fingerprint      = var.api_fingerprint
