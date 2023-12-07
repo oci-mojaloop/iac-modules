@@ -132,8 +132,7 @@ output "docker_hosts_var_maps" {
     nexus_docker_repo_listening_port = var.nexus_docker_repo_listening_port
     docker_extra_volume_name         = "docker-extra"
     docker_extra_vol_mount           = true
-    # docker_extra_ebs_volume_id       = oci_core_volume.docker_server_block_volume.id
-    docker_extra_ebs_volume_id       = "/dev/sdb"
+    docker_extra_ebs_volume_id       = oci_core_volume.docker_server_block_volume.id
     docker_extra_volume_size_mb      = var.docker_server_extra_vol_size * 1074
     seaweedfs_num_volumes            = 100
     vault_listening_port             = var.vault_listening_port
