@@ -14,13 +14,10 @@ netmaker_version: 0.18.7
 letsencrypt_email: test@mojalabs.io
 delete_storage_on_term: true
 home_region: us-ashburn-1
-# api_fingerprint: "oci_user_fingerprint"
-# user_id: "ocid1.user.oc1..aaaaaaaa"
 tenancy_id: "ocid1.tenancy.oc1..aaaaaaaa"
 compartment_id: "ocid1.compartment.oc1..aaaaaaaa"
 bucket_namespace: "oci_objectstorage_namespace"
 ad_count: "oci_number_ad_in_region"
-# api_private_key_path: "/root/.oci/api-key.pem"
 envs:
   - env: dev
     domain: labsk8s604.mojaloop.live
