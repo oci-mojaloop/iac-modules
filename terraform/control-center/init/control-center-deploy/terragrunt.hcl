@@ -39,7 +39,11 @@ provider "awsutils" {
 
 %{ if get_env("CONTROL_CENTER_CLOUD_PROVIDER") == "oci" }
 provider "oci" {
-  region = "${local.env_vars.region}"
+  region           = "${local.env_vars.region}"
+  tenancy_ocid     = "${local.env_vars.tenancy_id}"
+  user_ocid        = "${local.env_vars.user_id}"
+  fingerprint      = "${local.env_vars.api_fingerprint}"
+  private_key_path = "${local.env_vars.api_private_key_path}"
 }
 %{ endif }
 EOF
