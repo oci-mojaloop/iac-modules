@@ -48,7 +48,7 @@ module "k6s_test_harness" {
   compute_image_id            = module.ubuntu_canonical_image.id
   docker_server_instance_type = var.k6s_docker_server_instance_type
   subnet_id                   = module.base_infra.private_subnet_id
-  key_pair_name               = module.base_infra.key_pair_name
+  key_pair_name               = module.base_infra.ssh_public_key
   public_zone_id              = module.base_infra.public_zone.id
   test_harness_hostname       = var.k6s_docker_server_fqdn
 }

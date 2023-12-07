@@ -26,7 +26,7 @@ resource "oci_core_instance" "docker_server" {
     remote_data_volume_type = "PARAVIRTUALIZED"
   }
   metadata = {
-    ssh_authorized_keys = tls_private_key.compute_ssh_key.public_key_openssh
+    ssh_authorized_keys = var.key_pair_name
   }
 
   shape = lookup(var.operator_shape, "shape", "VM.Standard.E4.Flex")
