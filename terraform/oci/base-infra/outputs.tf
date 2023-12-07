@@ -9,6 +9,12 @@ output "ssh_private_key" {
   sensitive   = true
 }
 
+output "ssh_public_key" {
+  description = "ssh public key"
+  value       = tls_private_key.compute_ssh_key.public_key_openssh
+  sensitive   = true
+}
+
 output "nat_public_ips" {
   description = "nat gateway public ips"
   value       = data.oci_core_nat_gateway.nat_gateway.nat_ip
