@@ -101,6 +101,7 @@ output "gitlab_hosts_var_maps" {
     s3_password             = random_password.gitlab_s3_access_secret.result
     s3_server_url           = "http://${oci_dns_rrset.seaweedfs_server_private.domain}:${var.seaweedfs_s3_listening_port}"
     backup_ebs_volume_id    = oci_core_volume.gitlab_server_block_volume.id
+    backup_volume_disk_name = "/dev/sdb"
   }
 }
 
@@ -132,8 +133,8 @@ output "docker_hosts_var_maps" {
     nexus_docker_repo_listening_port = var.nexus_docker_repo_listening_port
     docker_extra_volume_name         = "docker-extra"
     docker_extra_vol_mount           = true
-    # docker_extra_ebs_volume_id       = oci_core_volume.docker_server_block_volume.id
-    docker_extra_ebs_volume_id       = "/dev/sdb"
+    docker_extra_ebs_volume_id       = oci_core_volume.docker_server_block_volume.id
+    docker_extra_disk_name           = "/dev/sdb"
     docker_extra_volume_size_mb      = var.docker_server_extra_vol_size * 1074
     seaweedfs_num_volumes            = 100
     vault_listening_port             = var.vault_listening_port
