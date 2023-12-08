@@ -26,7 +26,7 @@ module "vcn" {
   subnets                  = local.subnet_maps
   vcn_cidrs                = [var.vcn_cidr]
   vcn_name                 = local.cluster_domain
-  lockdown_default_seclist = true
+  lockdown_default_seclist = false
 }
 
 
