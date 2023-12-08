@@ -94,10 +94,6 @@ resource "oci_core_network_security_group_security_rule" "k6s_docker_server_rule
       max = var.k6s_listening_ports[count.index]
       min = var.k6s_listening_ports[count.index]
     }
-    source_port_range {
-      max = var.k6s_listening_ports[count.index]
-      min = var.k6s_listening_ports[count.index]
-    }
   }
     lifecycle {
     create_before_destroy = true
@@ -112,10 +108,6 @@ resource "oci_core_network_security_group_security_rule" "k6s_docker_server_ssh"
   source_type               = "CIDR_BLOCK"
   tcp_options {
     destination_port_range {
-      max = 22
-      min = 22
-    }
-    source_port_range {
       max = 22
       min = 22
     }

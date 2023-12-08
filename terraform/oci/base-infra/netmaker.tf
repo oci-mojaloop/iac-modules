@@ -48,10 +48,6 @@ resource "oci_core_network_security_group_security_rule" "netmaker_ssh" {
       max = 22
       min = 22
     }
-    source_port_range {
-      max = 22
-      min = 22
-    }
   }
 }
 
@@ -105,10 +101,6 @@ resource "oci_core_network_security_group_security_rule" "netmaker_proxy" {
   source_type               = "CIDR_BLOCK"
   tcp_options {
     destination_port_range {
-      max = 443
-      min = 443
-    }
-    source_port_range {
       max = 443
       min = 443
     }

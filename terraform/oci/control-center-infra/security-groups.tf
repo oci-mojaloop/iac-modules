@@ -26,10 +26,6 @@ resource "oci_core_network_security_group_security_rule" "gitlab_server_ingress_
       max = "22"
       min = "22"
     }
-    source_port_range {
-      max = "22"
-      min = "22"
-    }
   }
 }
 
@@ -41,10 +37,6 @@ resource "oci_core_network_security_group_security_rule" "gitlab_server_ingress_
   source_type               = "CIDR_BLOCK"
   tcp_options {
     destination_port_range {
-      max = "80"
-      min = "80"
-    }
-    source_port_range {
       max = "80"
       min = "80"
     }
@@ -62,10 +54,6 @@ resource "oci_core_network_security_group_security_rule" "gitlab_server_ingress_
       max = "443"
       min = "443"
     }
-    source_port_range {
-      max = "443"
-      min = "443"
-    }
   }
 }
 
@@ -79,10 +67,6 @@ resource "oci_core_network_security_group_security_rule" "gitlab_server_ingress_
   source_type               = "CIDR_BLOCK"
   tcp_options {
     destination_port_range {
-      max = "5050"
-      min = "5050"
-    }
-    source_port_range {
       max = "5050"
       min = "5050"
     }
@@ -108,10 +92,6 @@ resource "oci_core_network_security_group_security_rule" "docker_server_ingress_
       max = "22"
       min = "22"
     }
-    source_port_range {
-      max = "22"
-      min = "22"
-    }
   }
 }
 
@@ -124,10 +104,6 @@ resource "oci_core_network_security_group_security_rule" "docker_server_ingress_
   source_type               = "CIDR_BLOCK"
   tcp_options {
     destination_port_range {
-      max = var.nexus_admin_listening_port
-      min = var.nexus_admin_listening_port
-    }
-    source_port_range {
       max = var.nexus_admin_listening_port
       min = var.nexus_admin_listening_port
     }
@@ -146,10 +122,6 @@ resource "oci_core_network_security_group_security_rule" "docker_server_ingress_
       max = var.nexus_docker_repo_listening_port
       min = var.nexus_docker_repo_listening_port
     }
-    source_port_range {
-      max = var.nexus_docker_repo_listening_port
-      min = var.nexus_docker_repo_listening_port
-    }
   }
 }
 
@@ -165,10 +137,6 @@ resource "oci_core_network_security_group_security_rule" "docker_server_ingress_
       max = var.seaweedfs_s3_listening_port
       min = var.seaweedfs_s3_listening_port
     }
-    source_port_range {
-      max = var.seaweedfs_s3_listening_port
-      min = var.seaweedfs_s3_listening_port
-    }
   }
 }
 
@@ -181,10 +149,6 @@ resource "oci_core_network_security_group_security_rule" "docker_server_ingress_
   source_type               = "CIDR_BLOCK"
   tcp_options {
     destination_port_range {
-      max = var.vault_listening_port
-      min = var.vault_listening_port
-    }
-    source_port_range {
       max = var.vault_listening_port
       min = var.vault_listening_port
     }

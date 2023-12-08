@@ -20,10 +20,6 @@ resource "oci_core_network_security_group_security_rule" "ingress_http" {
       max = var.target_group_external_http_port
       min = var.target_group_external_http_port
     }
-    source_port_range {
-      max = var.target_group_external_http_port
-      min = var.target_group_external_http_port
-    }
   }
 }
 
@@ -35,10 +31,6 @@ resource "oci_core_network_security_group_security_rule" "ingress_https" {
   source_type               = "CIDR_BLOCK"
   tcp_options {
     destination_port_range {
-      max = var.target_group_external_https_port
-      min = var.target_group_external_https_port
-    }
-    source_port_range {
       max = var.target_group_external_https_port
       min = var.target_group_external_https_port
     }
@@ -56,10 +48,6 @@ resource "oci_core_network_security_group_security_rule" "ingress_health_externa
       max = var.target_group_external_health_port
       min = var.target_group_external_health_port
     }
-    source_port_range {
-      max = var.target_group_external_health_port
-      min = var.target_group_external_health_port
-    }
   }
 }
 
@@ -71,10 +59,6 @@ resource "oci_core_network_security_group_security_rule" "ingress_http_internal"
   source_type               = "CIDR_BLOCK"
   tcp_options {
     destination_port_range {
-      max = var.target_group_internal_http_port
-      min = var.target_group_internal_http_port
-    }
-    source_port_range {
       max = var.target_group_internal_http_port
       min = var.target_group_internal_http_port
     }
@@ -92,10 +76,6 @@ resource "oci_core_network_security_group_security_rule" "ingress_https_internal
       max = var.target_group_internal_https_port
       min = var.target_group_internal_https_port
     }
-    source_port_range {
-      max = var.target_group_internal_https_port
-      min = var.target_group_internal_https_port
-    }
   }
 }
 
@@ -107,10 +87,6 @@ resource "oci_core_network_security_group_security_rule" "ingress_health_interna
   source_type               = "CIDR_BLOCK"
   tcp_options {
     destination_port_range {
-      max = var.target_group_internal_health_port
-      min = var.target_group_internal_health_port
-    }
-    source_port_range {
       max = var.target_group_internal_health_port
       min = var.target_group_internal_health_port
     }
@@ -126,10 +102,6 @@ resource "oci_core_network_security_group_security_rule" "ingress_vpn" {
   source_type               = "CIDR_BLOCK"
   udp_options {
     destination_port_range {
-      max = var.wireguard_port
-      min = var.wireguard_port
-    }
-    source_port_range {
       max = var.wireguard_port
       min = var.wireguard_port
     }
@@ -179,10 +151,6 @@ resource "oci_core_network_security_group_security_rule" "internal_ssh" {
       max = 22
       min = 22
     }
-    source_port_range {
-      max = 22
-      min = 22
-    }
   }
 }
 
@@ -194,10 +162,6 @@ resource "oci_core_network_security_group_security_rule" "self_master" {
   source_type               = "CIDR_BLOCK"
   tcp_options {
     destination_port_range {
-      max = 6443
-      min = 6443
-    }
-    source_port_range {
       max = 6443
       min = 6443
     }
@@ -215,10 +179,6 @@ resource "oci_core_network_security_group_security_rule" "self_https_external" {
       max = 443
       min = 443
     }
-    source_port_range {
-      max = 443
-      min = 443
-    }
   }
 }
 
@@ -230,10 +190,6 @@ resource "oci_core_network_security_group_security_rule" "self_http_external" {
   source_type               = "CIDR_BLOCK"
   tcp_options {
     destination_port_range {
-      max = 80
-      min = 80
-    }
-    source_port_range {
       max = 80
       min = 80
     }
@@ -252,10 +208,6 @@ resource "oci_core_network_security_group_security_rule" "self_https_internal" {
       max = 8443
       min = 8443
     }
-    source_port_range {
-      max = 8443
-      min = 8443
-    }
   }
 }
 
@@ -267,10 +219,6 @@ resource "oci_core_network_security_group_security_rule" "self_http_internal" {
   source_type               = "CIDR_BLOCK"
   tcp_options {
     destination_port_range {
-      max = 8080
-      min = 8080
-    }
-    source_port_range {
       max = 8080
       min = 8080
     }

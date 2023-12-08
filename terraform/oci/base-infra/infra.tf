@@ -49,10 +49,6 @@ resource "oci_core_network_security_group_security_rule" "bastion_ssh" {
       max = 22
       min = 22
     }
-    source_port_range {
-      max = 22
-      min = 22
-    }
   }
 }
 
