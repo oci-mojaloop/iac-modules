@@ -189,17 +189,17 @@ output "netmaker_hosts" {
 }
 
 ## We need to figure out an equivalent of this for oci.
-# output "iac_user_key_id" {
-#   description = "key id for iac user for gitlab-ci"
-#   value       = aws_iam_access_key.gitlab_ci_iam_user_key.id
-#   sensitive   = false
-# }
+output "iac_user_key_id" {
+  description = "key id for iac user for gitlab-ci"
+  value       = "dummy-value"
+  sensitive   = false
+}
 
-# output "iac_user_key_secret" {
-#   description = "key secret for iac user for gitlab-ci"
-#   value       = aws_iam_access_key.gitlab_ci_iam_user_key.secret
-#   sensitive   = true
-# }
+output "iac_user_key_secret" {
+  description = "key secret for iac user for gitlab-ci"
+  value       = "dummy-value"
+  sensitive   = true
+}
 
 output "public_zone_name" {
   value = module.base_infra.public_zone.name
