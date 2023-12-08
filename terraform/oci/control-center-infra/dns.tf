@@ -1,12 +1,25 @@
+# resource "oci_dns_rrset" "gitlab_server_public" {
+#   domain          = "gitlab.${module.base_infra.public_zone.name}"
+#   rtype           = "CNAME"
+#   zone_name_or_id = module.base_infra.public_zone.id
+#   compartment_id  = var.compartment_id
+#   items {
+#     domain = "gitlab.${module.base_infra.public_zone.name}"
+#     rdata  = local.gitlab_server_public_dns
+#     rtype  = "CNAME"
+#     ttl    = "300"
+#   }
+# }
+
 resource "oci_dns_rrset" "gitlab_server_public" {
   domain          = "gitlab.${module.base_infra.public_zone.name}"
-  rtype           = "CNAME"
+  rtype           = "A"
   zone_name_or_id = module.base_infra.public_zone.id
   compartment_id  = var.compartment_id
   items {
     domain = "gitlab.${module.base_infra.public_zone.name}"
-    rdata  = local.gitlab_server_public_dns
-    rtype  = "CNAME"
+    rdata  = oci_core_instance.gitlab_server.public_ip
+    rtype  = "A"
     ttl    = "300"
   }
 }
