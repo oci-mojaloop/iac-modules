@@ -1,0 +1,5 @@
+#cloud-config
+runcmd:
+- iptables -I INPUT -s ${vcn_cidr}" -j ACCEPT
+- iptables -I INPUT -p tcp -m state --state NEW -m tcp --dport 51820 -j ACCEPT
+- iptables-save > /etc/iptables/rules.v4
