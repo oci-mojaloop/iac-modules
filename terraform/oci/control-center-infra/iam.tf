@@ -11,13 +11,13 @@ locals {
 
 ## Temporarily commented till we get access to test this tenancy
 
-# resource "oci_identity_dynamic_group" "gitlab_dynamic_group" {
-#   name           = "${replace(var.domain, ".", "-")}-${var.cluster_name}-gitlab"
-#   description    = "${replace(var.domain, ".", "-")}-${var.cluster_name}-gitlab"
-#   compartment_id = var.tenancy_id
-#   matching_rule  = "ANY {${join(",", local.dynamic_group_matching_rules)}}"
-#   provider       = oci.home_region
-# }
+resource "oci_identity_dynamic_group" "gitlab_dynamic_group" {
+  name           = "${replace(var.domain, ".", "-")}-${var.cluster_name}-gitlab"
+  description    = "${replace(var.domain, ".", "-")}-${var.cluster_name}-gitlab"
+  compartment_id = var.tenancy_id
+  matching_rule  = "ANY {${join(",", local.dynamic_group_matching_rules)}}"
+  provider       = oci.home_region
+}
 
 
 resource "oci_identity_user" "gitlab_ci_iam_user" {

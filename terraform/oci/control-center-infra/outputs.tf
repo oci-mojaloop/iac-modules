@@ -201,6 +201,11 @@ output "iac_user_key_secret" {
   sensitive   = true
 }
 
+output "iac_user_instance_principal" {
+  description = "Env variable for using instance principal based authentication"
+  value       = "instance_principal"
+}
+
 output "public_zone_name" {
   value = module.base_infra.public_zone.name
 }
