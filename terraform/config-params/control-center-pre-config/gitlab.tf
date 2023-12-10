@@ -45,6 +45,14 @@ resource "gitlab_project_variable" "iam_user_key_secret" {
   masked    = true
 }
 
+resource "gitlab_project_variable" "oci_instance_principal" {
+  project   = gitlab_project.bootstrap.id
+  key       = "OCI_CLI_AUTH"
+  value     = "instance_principal"
+  protected = true
+  masked    = true
+}
+
 resource "gitlab_project_variable" "iac_templates_tag" {
   project   = gitlab_project.bootstrap.id
   key       = "IAC_TEMPLATES_TAG"
