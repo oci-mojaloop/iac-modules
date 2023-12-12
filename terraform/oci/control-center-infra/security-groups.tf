@@ -73,6 +73,21 @@ resource "oci_core_network_security_group_security_rule" "gitlab_server_ingress_
   }
 }
 
+resource "oci_core_network_security_group_security_rule" "gitlab_server_ingress_registry_nat" {
+  network_security_group_id = oci_core_network_security_group.gitlab_server.id
+  direction                 = "INGRESS"
+  description               = "GitLab Container Registry from NAT"
+  protocol                  = "6"
+  source                    = "${module.base_infra.nat_public_ips}/32"
+  source_type               = "CIDR_BLOCK"
+  tcp_options {
+    destination_port_range {
+      max = "5050"
+      min = "5050"
+    }
+  }
+}
+
 
 resource "oci_core_network_security_group" "docker_server" {
   compartment_id = var.compartment_id
