@@ -32,6 +32,7 @@ inputs = {
   ansible_bastion_key         = dependency.control_center_deploy.outputs.bastion_ssh_key
   ansible_bastion_os_username = dependency.control_center_deploy.outputs.bastion_os_username
   ansible_bastion_public_ip   = dependency.control_center_deploy.outputs.bastion_public_ip
+  ansible_collection_url      = local.env_vars.ansible_collection_url
   ansible_collection_tag      = local.env_vars.ansible_collection_tag
   ansible_base_output_dir     = get_env("ANSIBLE_BASE_OUTPUT_DIR")
 }
