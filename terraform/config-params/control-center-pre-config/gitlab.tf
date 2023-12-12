@@ -69,7 +69,7 @@ resource "gitlab_project_variable" "iac_terraform_modules_tag" {
   masked    = false
 }
 
-resource "gitlab_project_variable" "iac_terraform_modules_tag" {
+resource "gitlab_project_variable" "iac_terraform_modules_repo" {
   project   = gitlab_project.bootstrap.id
   key       = "IAC_TERRAFORM_MODULES_REPO"
   value     = var.iac_terraform_modules_repo
