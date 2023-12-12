@@ -42,7 +42,9 @@ inputs = {
   private_repo                     = get_env("PRIVATE_REPO")
   iac_templates_tag                = get_env("IAC_TEMPLATES_TAG")
   iac_terraform_modules_tag        = get_env("IAC_TERRAFORM_MODULES_TAG")
+  iac_terraform_modules_repo       = get_env("IAC_TERRAFORM_MODULES_REPO")
   control_center_cloud_provider    = get_env("CONTROL_CENTER_CLOUD_PROVIDER")
+
 }
 
 locals {

@@ -50,6 +50,11 @@ variable "private_repo_token" {
 variable "iac_terraform_modules_tag" {
   description = "tag for repo for modules"
 }
+
+variable "iac_terraform_modules_repo" {
+  description = "repo for modules"
+}
+
 variable "iac_templates_tag" {
   description = "tag for repo for templates"
 }
