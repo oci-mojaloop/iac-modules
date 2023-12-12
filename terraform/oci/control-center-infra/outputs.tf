@@ -148,15 +148,16 @@ output "docker_hosts_var_maps" {
 output "netmaker_hosts_var_maps" {
   sensitive = true
   value = {
-    netmaker_base_domain          = oci_dns_zone.public_netmaker[0].name
-    netmaker_server_public_ip     = module.base_infra.netmaker_public_ip
-    netmaker_master_key           = random_password.netmaker_master_key.result
-    netmaker_mq_pw                = random_password.netmaker_mq_pw.result
-    netmaker_admin_password       = random_password.netmaker_admin_password.result
-    netmaker_oidc_issuer          = "https://${oci_dns_rrset.gitlab_server_public.domain}"
-    netmaker_control_network_name = var.netmaker_control_network_name
-    ansible_ssh_common_args       = "-o StrictHostKeyChecking=no"
-    cloud_platform                = var.cloud_platform
+    netmaker_base_domain                        = oci_dns_zone.public_netmaker[0].name
+    netmaker_server_public_ip                   = module.base_infra.netmaker_public_ip
+    netmaker_master_key                         = random_password.netmaker_master_key.result
+    netmaker_mq_pw                              = random_password.netmaker_mq_pw.result
+    netmaker_admin_password                     = random_password.netmaker_admin_password.result
+    netmaker_oidc_issuer                        = "https://${oci_dns_rrset.gitlab_server_public.domain}"
+    netmaker_control_network_name               = var.netmaker_control_network_name
+    ansible_ssh_common_args                     = "-o StrictHostKeyChecking=no"
+    cloud_platform                              = var.cloud_platform
+    netmaker_control_network_address_cidr_start = var.vcn_cidr
   }
 }
 
