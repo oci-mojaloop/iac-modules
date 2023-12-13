@@ -157,7 +157,7 @@ output "netmaker_hosts_var_maps" {
     netmaker_control_network_name               = var.netmaker_control_network_name
     ansible_ssh_common_args                     = "-o StrictHostKeyChecking=no"
     cloud_platform                              = var.cloud_platform
-    netmaker_control_network_address_cidr_start = var.vcn_cidr
+    # netmaker_control_network_address_cidr_start = var.vcn_cidr
   }
 }
 
