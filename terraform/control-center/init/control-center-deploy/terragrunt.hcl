@@ -40,6 +40,7 @@ provider "awsutils" {
 %{ if get_env("CONTROL_CENTER_CLOUD_PROVIDER") == "oci" }
 provider "oci" {
   region           = "${local.env_vars.region}"
+  auth             = "InstancePrincipal"
 }
 %{ endif }
 EOF
