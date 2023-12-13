@@ -143,7 +143,7 @@ resource "oci_core_instance" "docker_server" {
   }
   metadata = {
     ssh_authorized_keys = module.base_infra.ssh_public_key
-    user_data           = base64encode(templatefile("${path.module}/templates/docker.user_data.tmpl", { vcn_cidr = var.vcn_cidr }))
+    user_data           = base64encode(templatefile("${path.module}/templates/docker.user_data.tmpl", { vcn_cidr = var.vcn_cidr, nat_cidr = "${module.base_infra.nat_public_ips}/32" }))
   }
 
   shape = lookup(var.docker_server_shape, "shape", "VM.Standard.E4.Flex")
