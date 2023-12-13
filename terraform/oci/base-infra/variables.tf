@@ -10,6 +10,11 @@ variable "compartment_id" {
   description = "compartment ocid"
 }
 
+variable "region" {
+  type        = string
+  description = "The OCI region"
+}
+
 variable "ad_count" {
   type        = number
   default     = 1

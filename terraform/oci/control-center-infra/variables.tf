@@ -8,6 +8,11 @@ variable "tenancy_id" {
   type        = string
 }
 
+variable "region" {
+  type        = string
+  description = "The OCI region"
+}
+
 variable "cloud_platform" {
   description = "Cloud service provider"
   default     = "oci"

@@ -8,6 +8,7 @@ module "base_infra" {
   source              = "../base-infra"
   tenancy_id          = var.tenancy_id
   compartment_id      = var.compartment_id
+  region              = var.region
   cluster_name        = var.cluster_name
   domain              = var.domain
   tags                = var.tags
