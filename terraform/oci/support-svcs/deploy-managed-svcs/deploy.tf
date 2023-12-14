@@ -3,6 +3,7 @@ module "deploy_db" {
   source          = "../deploy-mysql"
   tenancy_id      = var.tenancy_id
   compartment_id  = var.compartment_id
+  region          = var.region
   deployment_name = var.deployment_name
   tags            = var.tags
   db_services     = local.db_services
@@ -21,6 +22,7 @@ module "base_infra" {
   source                    = "../../base-infra"
   tenancy_id                = var.tenancy_id
   compartment_id            = var.compartment_id
+  region                    = var.region
   cluster_name              = var.deployment_name
   tags                      = var.tags
   vcn_cidr                  = var.vcn_cidr

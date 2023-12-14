@@ -12,6 +12,11 @@ variable "tenancy_id" {
   type        = string
 }
 
+variable "region" {
+  type        = string
+  description = "The OCI region"
+}
+
 variable "db_subnet_id" {
   description = "The subnet id for db services"
   type        = string

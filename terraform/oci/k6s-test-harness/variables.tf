@@ -3,6 +3,11 @@ variable "compartment_id" {
   description = "compartment ocid"
 }
 
+variable "region" {
+  type        = string
+  description = "The OCI region"
+}
+
 variable "operator_shape" {
   description = "The shape of the operator instance."
   default = {

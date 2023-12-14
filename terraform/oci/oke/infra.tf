@@ -9,6 +9,7 @@ module "base_infra" {
   source                    = "../base-infra"
   tenancy_id                = var.tenancy_id
   compartment_id            = var.compartment_id
+  region                    = var.region
   cluster_name              = var.cluster_name
   domain                    = var.domain
   tags                      = var.tags
@@ -27,6 +28,7 @@ module "post_config" {
   source                     = "../post-config-k8s"
   tenancy_id                 = var.tenancy_id
   compartment_id             = var.compartment_id
+  region                     = var.region
   bucket_namespace           = var.bucket_namespace
   name                       = var.cluster_name
   domain                     = var.domain
@@ -40,6 +42,7 @@ module "k6s_test_harness" {
   count                       = var.enable_k6s_test_harness ? 1 : 0
   source                      = "../k6s-test-harness"
   compartment_id              = var.compartment_id
+  region                      = var.region
   cluster_name                = var.cluster_name
   domain                      = var.domain
   tags                        = var.tags

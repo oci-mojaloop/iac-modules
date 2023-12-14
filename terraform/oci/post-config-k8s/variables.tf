@@ -12,6 +12,11 @@ variable "tenancy_id" {
   type        = string
 }
 
+variable "region" {
+  type        = string
+  description = "The OCI region"
+}
+
 # variable "api_fingerprint" {
 #   default     = ""
 #   description = "Fingerprint of the API private key to use with OCI API."

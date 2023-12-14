@@ -11,6 +11,11 @@ variable "tenancy_id" {
   type        = string
 }
 
+variable "region" {
+  type        = string
+  description = "The OCI region"
+}
+
 variable "new_bits" {
   type        = number
   default     = 2
