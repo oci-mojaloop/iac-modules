@@ -3,14 +3,6 @@ output "nat_public_ips" {
   value       = module.base_infra.nat_public_ips
 }
 
-# output "internal_load_balancer_dns" {
-#   value = aws_lb.internal.dns_name
-# }
-
-# output "external_load_balancer_dns" {
-#   value = aws_lb.lb.dns_name
-# }
-
 output "private_subdomain" {
   value = module.base_infra.private_zone.name
 }

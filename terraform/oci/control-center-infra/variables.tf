@@ -19,24 +19,6 @@ variable "cloud_platform" {
   type        = string
 }
 
-# variable "api_fingerprint" {
-#   default     = ""
-#   description = "Fingerprint of the API private key to use with OCI API."
-#   type        = string
-# }
-
-# variable "api_private_key_path" {
-#   default     = ""
-#   description = "The path to the OCI API private key."
-#   type        = string
-# }
-
-# variable "user_id" {
-#   description = "The id of the user that terraform will use to create the resources."
-#   type        = string
-#   default     = ""
-# }
-
 variable "ad_number" {
   description = "the AD to place the operator host"
   default     = 1
