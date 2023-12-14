@@ -27,6 +27,7 @@ module "post_config" {
   source                      = "../post-config-control-center"
   tenancy_id                  = var.tenancy_id
   compartment_id              = var.compartment_id
+  region                      = var.region
   name                        = local.name
   domain                      = local.base_domain
   public_zone_id              = module.base_infra.public_zone.id

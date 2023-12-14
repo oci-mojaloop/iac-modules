@@ -8,6 +8,11 @@ variable "tenancy_id" {
   type        = string
 }
 
+variable "region" {
+  type        = string
+  description = "The OCI region"
+}
+
 variable "spf_record" {
   description = "An SPF TXT record is used to establish trust between sending and receiving mail servers."
   type        = string
